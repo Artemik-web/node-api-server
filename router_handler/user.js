@@ -8,6 +8,10 @@ const db = require('../db/index')
 // 为了保证密码的安全性，不建议在数据库以 明文 的形式保存用户密码，推荐对密码进行 加密存储
 // 导入 bcryptjs  加密
 const bcrypt = require('bcryptjs')
+// 用这个包来生成 Token 字符串
+const jwt = require('jsonwebtoken')
+// 导入配置文件
+const config = require('../config')
 
 // 注册用户的处理函数
 exports.reguser = (req, res)=> {
@@ -70,5 +74,31 @@ exports.reguser = (req, res)=> {
 
 // 登录的处理函数
 exports.login = (req, res)=> {
-    res.send('login ok')
+    const userInfo = req.body
+    const sql = `select * from ev_users where username=?`
+    db.query(sql, userInfo.username, (err, results)=> {
+        if(err) return res.cc(err)
+        // 执行 SQL 语句成功，但是查询到数据条数不等于 1
+        if(results.length !== 1) return res.cc('当前用户未注册！')
+        // 判断用户输入的登录密码是否和数据库中的密码一致
+        // 调用 bcrypt.compareSync(用户提交的密码, 数据库中的密码) 方法比较密码是否一致
+        const compareResult = bcrypt.compareSync(userInfo.password, results[0].password)//返回布尔值
+        // 如果对比的结果等于 false, 则证明用户输入的密码错误
+        if(!compareResult) return res.cc('密码错误！')
+        // 生成 JWT 的 Token 字符串
+        // 核心注意点：在生成 Token 字符串的时候，一定要剔除 密码 和 头像 的值
+        // 通过 ES6 的高级语法，快速剔除 密码 和 头像 的值
+        // 剔除完毕之后，user 中只保留了用户的 id, username, nickname, email 这四个属性的值
+        const user = { ...results[0], password: '', user_pic: ''}
+        // 对用户的信息进行加密生成token字符串
+        const tokenStr = jwt.sign(user, config.jwtSecrekry, { expiresIn: config.expiresIn})
+        // console.log(tokenStr)
+        res.send({
+            status: 0,
+            message: '登陆成功！',
+             // 为了方便客户端使用 Token，在服务器端直接拼接上 Bearer+空格 的前缀
+            token: 'Bearer ' + tokenStr
+        })
+    })
+    
 }
