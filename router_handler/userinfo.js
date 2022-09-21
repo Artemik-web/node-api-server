@@ -67,7 +67,7 @@ exports.updatePassword = (req, res)=> {
         
 })
 }
-// 实现更新用户头像的功能函数
+// 更新用户头像的处理函数
 exports.updateAvatar = (req, res)=> {
     const sql = `update ev_users set user_pic=? where id=?`
     db.query(sql, [req.body.avatar, req.user.id], (err, results)=> {

@@ -46,6 +46,9 @@ const userinfoRouter = require('./router/userinfo')
 // 注意：以 /my 开头的接口，都是有权限的接口，需要进行 Token 身份认证
 app.use('/my', userinfoRouter)
 
+const artCateRouter = require('./router/artcate')
+app.use('/my/article', artCateRouter)
+
 const Joi = require('joi')
 app.use((err, req, res, next)=>{
     if(err instanceof Joi.ValidationError) return res.cc(err)
