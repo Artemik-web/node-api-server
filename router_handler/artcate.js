@@ -76,7 +76,7 @@ exports.getArtCateById = (req, res)=> {
     })
     // res.send('ok')
 }
-// 更新文章分类的处理函数
+// 根据Id更新文章分类的处理函数
 exports.updateCateById = (req, res)=> {
     const sql = `select * from ev_article_cate where id<>? and (name=? or alias=?)`
     db.query(sql, [req.body.Id, req.body.name, req.body.alias], (err, results)=> {

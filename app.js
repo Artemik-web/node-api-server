@@ -45,9 +45,13 @@ app.use('/api', userRouter)
 const userinfoRouter = require('./router/userinfo')
 // 注意：以 /my 开头的接口，都是有权限的接口，需要进行 Token 身份认证
 app.use('/my', userinfoRouter)
-
+//导入并使用文章分类管理的路由模块
 const artCateRouter = require('./router/artcate')
 app.use('/my/article', artCateRouter)
+// 导入并使用文章路由模块
+const articleRouter = require('./router/article')
+// 为文章的路由挂载统一的访问前缀 /my/article
+app.use('/my/article', articleRouter)
 
 const Joi = require('joi')
 app.use((err, req, res, next)=>{
@@ -58,10 +62,10 @@ app.use((err, req, res, next)=>{
 
     res.cc(err)
 })
-
-
 // 配置解析 application/x-www-form-urlencoded 格式的表单数据的中间件  解决数据转换问题
 app.use(express.urlencoded({extended: false}))
+// 托管静态资源文件
+app.use('/uploads', express.static('./uploads'))
 
 
 
