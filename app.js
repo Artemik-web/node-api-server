@@ -3,8 +3,10 @@ const express = require('express')
 
 // 创建 express 的服务器实例
 const app = express()
-
-
+//解决报错文件转base64后太长，设置文件10M限制     数据库TEXT格式无法存储格式在数据库内已更改为longtext
+let bodyParser = require('body-parser')
+app.use(bodyParser.json({limit: '10mb'}));
+app.use(bodyParser.urlencoded({limit: '10mb', extended: true}));
 
 // 导入 cors 中间件
 const cors = require('cors')
@@ -60,7 +62,7 @@ app.use((err, req, res, next)=>{
     // 捕获身份认证失败的错误
     if (err.name === 'UnauthorizedError') return res.cc('身份认证失败！')
 
-    res.send(err)
+    res.cc(err)
 })
 // 配置解析 application/x-www-form-urlencoded 格式的表单数据的中间件  解决数据转换问题
 app.use(express.urlencoded({extended: false}))

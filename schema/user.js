@@ -41,7 +41,6 @@ exports.reg_login_schema = {
 // 验证规则对象 - 更新用户基本信息
 exports.update_userinfo_schema = {
   body: {
-    id,
     nickname,
     email: user_email
   }

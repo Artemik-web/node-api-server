@@ -30,7 +30,7 @@ exports.getUserInfo = (req,res)=>{
 
 exports.updateUserInfo = (req, res)=> {
     const sql = `update ev_users set ? where id=?`
-    db.query(sql, [req.body, req.body.id], (err, results)=> {
+    db.query(sql, [req.body, req.user.id], (err, results)=> {
         // 执行 SQL 语句失败
         if(err) return res.cc(err)
         // 执行 SQL 语句成功，但影响行数不为 1
@@ -72,6 +72,7 @@ exports.updateAvatar = (req, res)=> {
     const sql = `update ev_users set user_pic=? where id=?`
     db.query(sql, [req.body.avatar, req.user.id], (err, results)=> {
         // 执行 SQL 语句失败
+        // res.cc(results)
         if (err) return res.cc(err)
 
         // 执行 SQL 语句成功，但是影响行数不等于 1
