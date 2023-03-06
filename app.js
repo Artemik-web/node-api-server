@@ -60,7 +60,7 @@ app.use((err, req, res, next)=>{
     // 捕获身份认证失败的错误
     if (err.name === 'UnauthorizedError') return res.cc('身份认证失败！')
 
-    res.cc(err)
+    res.send(err)
 })
 // 配置解析 application/x-www-form-urlencoded 格式的表单数据的中间件  解决数据转换问题
 app.use(express.urlencoded({extended: false}))
