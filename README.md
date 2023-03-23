@@ -1310,6 +1310,7 @@ const upload = multer({ dest: path.join(__dirname, '../uploads') })
 // upload.single() 是一个局部生效的中间件，用来解析 FormData 格式的表单数据
 // 将文件类型的数据，解析并挂载到 req.file 属性中
 // 将文本类型的数据，解析并挂载到 req.body 属性中
+console.log(req.file)
 router.post('/add', upload.single('cover_img'), article_handler.addArticle)
 ```
 + 4.在 /router_handler/article.js 模块中的 addArticle 处理函数中，将 multer 解析出来的数据进行打印

@@ -7,7 +7,7 @@
   cacheDir: null,
   env: {
     npm_config_registry: 'https://registry.npmmirror.com',
-    npm_config_argv: '{"remain":[],"cooked":["--fix-bug-versions","--china","--userconfig=C:\\\\Users\\\\75933\\\\.cnpmrc","--disturl=https://npmmirror.com/mirrors/node","--registry=https://registry.npmmirror.com","-g","nodemon"],"original":["--fix-bug-versions","--china","--userconfig=C:\\\\Users\\\\75933\\\\.cnpmrc","--disturl=https://npmmirror.com/mirrors/node","--registry=https://registry.npmmirror.com","-g","nodemon"]}',
+    npm_config_argv: '{"remain":[],"cooked":["--fix-bug-versions","--china","--userconfig=C:\\\\Users\\\\75933\\\\.cnpmrc","--disturl=https://npmmirror.com/mirrors/node","--registry=https://registry.npmmirror.com","nodemon","-g"],"original":["--fix-bug-versions","--china","--userconfig=C:\\\\Users\\\\75933\\\\.cnpmrc","--disturl=https://npmmirror.com/mirrors/node","--registry=https://registry.npmmirror.com","nodemon","-g"]}',
     npm_config_user_agent: 'npminstall/7.5.0 npm/? node/v16.18.0 win32 x64',
     NODE: 'D:\\Appdata\\nodejs\\node.exe',
     npm_node_execpath: 'D:\\Appdata\\nodejs\\node.exe',
