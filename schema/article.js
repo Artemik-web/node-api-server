@@ -6,7 +6,7 @@ const title = joi.string().required()
 const cate_id = joi.number().integer().min(1).required()
 const content = joi.string().required().allow('')
 const state = joi.string().valid('已发布', '草稿').required()
-
+const Id = joi.number().integer().min(1).required()
 // 验证规则对象 - 发布文章
 exports.add_article_schema = {
   body: {
@@ -17,7 +17,11 @@ exports.add_article_schema = {
   },
 }
 
-const Id = joi.number().integer().min(1).required()
+exports.get_article_schema = {
+	params: {
+		cate_id,
+	  },
+}
 
 exports.delete_schema = {
   params: {

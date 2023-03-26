@@ -25,8 +25,9 @@ exports.addArticle = (req, res)=> {
 }
 
 exports.getArticle = (req, res)=>{
-    const sql = 'select * from ev_articles where is_delete=0 order by id asc'
-    db.query(sql, (err, results)=>{
+    const sql = 'select * from ev_articles where cate_id=? and is_delete=0 order by id desc'
+    // console.log(req.params.cate_id)
+    db.query(sql, req.params.cate_id, (err, results)=>{
         if(err) return res.cc(err)
         res.send({
             status: 0,

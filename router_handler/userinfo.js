@@ -73,6 +73,7 @@ exports.updateAvatar = (req, res)=> {
     db.query(sql, [req.body.avatar, req.user.id], (err, results)=> {
         // 执行 SQL 语句失败
         // res.cc(results)
+        // console.log(req.body.avatar, req.user.id)
         if (err) return res.cc(err)
 
         // 执行 SQL 语句成功，但是影响行数不等于 1
@@ -81,6 +82,6 @@ exports.updateAvatar = (req, res)=> {
         // 更新用户头像成功
         return res.cc('更新头像成功！', 0)
     })
-    res.send('ok')
+    // res.send('ok')
 }
     

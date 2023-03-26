@@ -17,7 +17,7 @@ exports.getArticleCates = (req, res)=> {
 exports.addArticleCates = (req, res)=> {
     // 定义查询 分类名称 与 分类别名 是否被占用的 SQL 语句
     const sql = `select * from ev_article_cate where name=? or alias=?`
-    db.query(sql, [req.body.name, req.body.alias], (err, results)=> {
+    db.query(sql, [req.user.id,req.body.name, req.body.alias], (err, results)=> {
         // 执行 SQL 语句失败
         if(err) return res.cc(err)
         // 分类名称 和 分类别名 都被占用
