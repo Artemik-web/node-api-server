@@ -1,5 +1,5 @@
 const db = require('../db')
-
+//文章发布函数
 exports.addArticle = (req, res)=> {
     // console.log(req.body) // 文本类型的数据
     // console.log('--------分割线----------')
@@ -23,7 +23,7 @@ exports.addArticle = (req, res)=> {
     })
     
 }
-
+//广场  根据大分类cate_id获取对应所有文章  倒叙
 exports.getArticle = (req, res)=>{
     const sql = 'select * from ev_articles where cate_id=? and is_delete=0 order by id desc'
     // console.log(req.params.cate_id)
@@ -36,7 +36,7 @@ exports.getArticle = (req, res)=>{
         })
     })
 }   
-
+//根据文章id删除文章
 exports.deleteById = (req, res)=>{
     const sql = 'update ev_articles set is_delete=1 where Id=?'
 
@@ -48,7 +48,7 @@ exports.deleteById = (req, res)=>{
     })
 
 }
-
+//根据文章id获取文章内容
 exports.getArticleById = (req, res)=>{
     const sql = 'select * from ev_articles where Id=?'
 
@@ -69,6 +69,20 @@ exports.getArticleById = (req, res)=>{
     })
 }
 
+//根据作者id查询该用户所有文章
+exports.getAllArticleById = (req, res)=>{
+    console.log(req.user.id)
+    const sql = `select * from ev_articles where author_id = ?`
+    db.query(sql,req.user.id, (err, results)=>{
+        console.log(sql,req.user.id, results)
+        if(err) return res.cc(err)
+        res.send({
+            status: 0,
+            message: '获取文章列表成功',
+            data: results
+        })
+    })
+}
 
 //更新文章的处理函数
 exports.editArticle = (req, res) => {

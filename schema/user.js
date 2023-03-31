@@ -23,6 +23,7 @@ const password = joi
 
 // 定义 id, nickname, emial 的验证规则
 const id = joi.number().integer().min(1).required()
+const author_id = joi.number().integer().min(1).required()
 const nickname = joi.string().required()
 const user_email = joi.string().email().required()
 
@@ -30,6 +31,13 @@ const user_email = joi.string().email().required()
 // data:image/png;base64,VE9PTUFOWVNFQ1JFVFM=
 const avatar = joi.string().dataUri().required()
 
+// 页面详情页id获取作者用户信息
+exports.get_userinfo_schema = {
+  // 表示需要对 req.body 中的数据进行验证
+  body: {
+    id
+  },
+}
 // 注册和登录表单的验证规则对象
 exports.reg_login_schema = {
   // 表示需要对 req.body 中的数据进行验证

@@ -8,12 +8,14 @@ const userinfo_handler = require('../router_handler/userinfo')
 // 1. 导入验证表单数据的中间件
 const expressJoi = require('@escook/express-joi')
 // 2. 导入需要的验证规则对象
-const { update_userinfo_schema, update_password_schema } = require('../schema/user')
+const { get_userinfo_schema, update_userinfo_schema, update_password_schema } = require('../schema/user')
 
 const { update_avatar_schema } = require('../schema/user')
 
-// 获取用户的基本信息
+// 登陆时获取用户的基本信息
 router.get('/userinfo', userinfo_handler.getUserInfo)
+// 其他用户文章详情页获取作者的基本信息
+router.post('/userinfo', expressJoi(get_userinfo_schema), userinfo_handler.getUserInfoById)
 // 更新用户的基本信息
 router.post('/userinfo', expressJoi(update_userinfo_schema), userinfo_handler.updateUserInfo)
 // 重置密码的路由
