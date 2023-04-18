@@ -49,6 +49,7 @@ exports.getUserInfoById = (req,res)=>{
 }
 
 exports.updateUserInfo = (req, res)=> {
+    console.log(req)
     const sql = `update ev_users set ? where id=?`
     db.query(sql, [req.body, req.user.id], (err, results)=> {
         // 执行 SQL 语句失败
